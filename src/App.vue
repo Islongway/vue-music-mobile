@@ -1,15 +1,32 @@
+<!--
+ * @Description: 
+ * @Autor: islongwayzzm
+ * @Date: 2021-06-30 14:29:35
+ * @LastEditors: islongwayzzm
+ * @LastEditTime: 2021-07-02 11:39:51
+-->
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <span class="test">ddd</span>
+  <HelloWorld />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue'
+import HelloWorld from '@/components/HelloWorld.vue'
+import axios from 'axios'
 
 export default defineComponent({
   name: 'App',
-  components: {},
-});
+  components: { HelloWorld },
+  setup() {
+    onMounted(() => {
+      axios.post('/api/account/getAccountInfo').then((res) => {
+        console.log('res', res)
+      })
+    })
+  },
+})
 </script>
 <style lang="less" scoped>
 .test {
