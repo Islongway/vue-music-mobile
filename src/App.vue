@@ -3,33 +3,37 @@
  * @Autor: islongwayzzm
  * @Date: 2021-06-30 14:29:35
  * @LastEditors: islongwayzzm
- * @LastEditTime: 2021-07-02 17:50:10
+ * @LastEditTime: 2021-07-05 16:06:55
 -->
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <span class="test">ddd</span>
+  <img
+    alt="Vue logo"
+    src="./assets/logo.png"
+  />
+  <span class="test">name:{{Id}}{{getLoading}}</span>
   <HelloWorld msg="llll" />
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { computed, defineComponent, onMounted } from 'vue'
 import HelloWorld from '@/components/HelloWorld.vue'
 import axios from 'axios'
-import { useStore } from 'vuex'
-import { key } from './store'
-import type { userInterface } from './store'
+import { useTestStroe } from '@/store/modules/test'
 
 export default defineComponent({
   name: 'App',
   components: { HelloWorld },
   setup() {
     // const { state as userInterface, getters } = useStore()
-    // console.log('dd', state.user.user)
-    // onMounted(() => {
-    //   axios.post('/api/account/getAccountInfo').then((res) => {
-    //     console.log('res', res)
-    //   })
-    // })
+    const TestStore = useTestStroe()
+    // setInterval(() => {
+    //   TestStore.SETID(2222)
+    //   console.log('dd', TestStore.Id)
+    // }, 2000)
+    return {
+      Id: computed(() => TestStore.Id),
+      getLoading: TestStore.getLoading,
+    }
   },
 })
 </script>

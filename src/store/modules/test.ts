@@ -1,46 +1,36 @@
-import type { Commit } from 'vuex'
-
-interface testState {
-  test: string,
-  testId: string
+/*
+ * @Description:
+ * @Autor: islongwayzzm
+ * @Date: 2021-07-02 14:18:12
+ * @LastEditors: islongwayzzm
+ * @LastEditTime: 2021-07-05 16:00:20
+ */
+import { defineStore } from 'pinia';
+import { store } from '@/store';
+interface TestState {
+  name: string;
+  Id: number;
 }
 
-// 复制编辑器提示的类型推导
-export interface testInterface {
-  state: testState;
+export const useTestStroe = defineStore({
+  id: 'test',
+  state: (): TestState => ({
+    name: 'tst',
+    Id: 11222,
+  }),
   getters: {
-    testId: (state: testState) => string;
-  };
-  mutations: {
-    SETtest(state: testState, test: string): void;
-  };
-  actions: {
-    gettest({ commit }: {
-      commit: Commit;
-    }): Promise<void>;
-  }
-}
-
-const rettest: testInterface = {
-  state: {
-    test: "test1111",
-    testId: "2222"
-  } as testState,
-  getters: {
-    testId: (state: testState): string => {
-      return state.testId
-    }
-  },
-  mutations: {
-    SETtest(state: testState, test: string): void {
-      state.test = test
-    }
+    getLoading(): Boolean {
+      return this.Id === 2222;
+    },
   },
   actions: {
-    async gettest({ commit }: { commit: Commit }): Promise<void> {
-      commit('SETtest', 'test22')
-    }
-  }
-}
+    SETID(id: number): void {
+      this.Id = id;
+      console.log('ddfff', this.Id, id);
+    },
+  },
+});
 
-export default rettest
+export function useTestStoreOut() {
+  return useTestStroe(store);
+}
